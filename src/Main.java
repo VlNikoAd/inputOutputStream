@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -19,90 +21,56 @@ public class Main {
         readReportOfCreateFromFileTxt();
     }
 
-    private static void createDirectoriesSrcResSavegamesTempInGames (StringBuilder str) {
+    private static void createDirectoriesSrcResSavegamesTempInGames(StringBuilder str) {
+        List<String> newDirectories = Arrays.asList("src", "res", "savegames", "temp");
         str.append("Этап1: ");
-        File dir = new File("/Users/vladislav/Games/src");
-        if (dir.mkdir())
-            str.append("\n'src' complete");
-        else
-            str.append("\n'src' something wrong");
-
-        File dir1 = new File("/Users/vladislav/Games/res");
-        if (dir1.mkdir())
-            str.append("\n'res' complete");
-        else
-            str.append("\n'res' something wrong");
-
-        File dir2 = new File("/Users/vladislav/Games/savegames");
-        if (dir2.mkdir())
-            str.append("\n'savegames' complete");
-        else
-            str.append("\n'savegames' something wrong");
-
-        File dir3 = new File("/Users/vladislav/Games/temp");
-        if (dir3.mkdir())
-            str.append("\n'temp' complete");
-        else
-            str.append("\n'temp' something wrong");
+        for (String name : newDirectories) {
+            File dir = new File("/Users/vladislav/Games/" + name);
+            if (dir.mkdir())
+                str.append("\n" + name + " complete");
+            else
+                str.append("\n" + name + " something wrong");
+        }
     }
 
-    private static void createDirectoriesMainAndTestInSrc (StringBuilder str) {
+    private static void createDirectoriesMainAndTestInSrc(StringBuilder str) {
+        List<String> newDirectories = Arrays.asList("main", "test");
         str.append("\nЭтап2: ");
-        File dir = new File("/Users/vladislav/Games/src/main");
-        if (dir.mkdir())
-            str.append("\n'main' complete");
-        else
-            str.append("\n'main' something wrong");
-
-        File dir1 = new File("/Users/vladislav/Games/src/test");
-        if (dir1.mkdir())
-            str.append("\n'test' complete");
-        else
-            str.append("\n'test' something wrong");
+        for (String name : newDirectories) {
+            File dir = new File("/Users/vladislav/Games/src/" + name);
+            if (dir.mkdir())
+                str.append("\n" + name + " complete");
+            else
+                str.append("\n" + name + " something wrong");
+        }
     }
 
     private static void createFilesMainAndUtilsInMain(StringBuilder str) {
+        List<String> newFiles = Arrays.asList("Main.java", "Utils.java");
         str.append("\nЭтап3: ");
-        File myFile = new File("/Users/vladislav/Games/src/main//Main.java");
-        try {
-            if (myFile.createNewFile())
-                str.append("\n'Main.java' compete");
-            else
-                str.append("\n'Main.java' something wrong");
-        } catch (IOException ex) {
-            str.append(ex.getMessage());
-        }
-
-        File myFile1 = new File("/Users/vladislav/Games/src/main//Utils.java");
-        try {
-            if (myFile1.createNewFile())
-                str.append("\n'Utils.java' complete");
-            else
-                str.append("\n'Utils.java' something wrong");
-        } catch (IOException ex) {
-            str.append(ex.getMessage());
+        for (String name : newFiles) {
+            File myFile = new File("/Users/vladislav/Games/src/main/" + name);
+            try {
+                if (myFile.createNewFile())
+                    str.append("\n" + name + " complete");
+                else
+                    str.append("\n" + name + " something wrong");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
     private static void createDirectoriesDrawablesVectorsIconsInRes(StringBuilder str) {
+        List<String> newDirectories = Arrays.asList("drawables", "vectors", "icons");
         str.append("\nЭтап4: ");
-        File dir = new File("/Users/vladislav/Games/res/drawables");
-        if (dir.mkdir())
-            str.append("\n'drawables' complete");
-        else
-            str.append("\n'drawables' something wrong");
-
-        File dir1 = new File("/Users/vladislav/Games/res/vectors");
-        if (dir1.mkdir())
-            str.append("\n'vectors' complete");
-        else
-            str.append("\n'vectors' something wrong.");
-
-        File dir2 = new File("/Users/vladislav/Games/res/icons");
-        if (dir2.mkdir())
-            str.append("\n'icons' complete");
-        else
-            str.append("\n'icons' something wrong.");
+        for (String name : newDirectories) {
+            File dir = new File("/Users/vladislav/Games/res/" + name);
+            if (dir.mkdir())
+                str.append("\n" + name + " complete");
+            else
+                str.append("\n" + name + " something wrong");
+        }
     }
 
     private static void createFileInTemp(StringBuilder str) {
@@ -119,7 +87,7 @@ public class Main {
     }
 
     private static void writeReportOfCreateInFileTxt(StringBuilder str) {
-        try (FileWriter writer = new FileWriter("/Users/vladislav/Games/temp//temp.txt", false)){
+        try (FileWriter writer = new FileWriter("/Users/vladislav/Games/temp//temp.txt", false)) {
             writer.write(String.valueOf(str));
             writer.flush();
         } catch (IOException ex) {
@@ -130,12 +98,12 @@ public class Main {
     private static void readReportOfCreateFromFileTxt() {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(
-                        new FileInputStream("/Users/vladislav/Games/temp//temp.txt")
+                        new FileInputStream("/Users/vladislav/Games/temp/temp.txt")
                 )
         )) {
-            String s;
-            while ((s = br.readLine()) != null) {
-                System.out.println(s);
+            String report;
+            while ((report = br.readLine()) != null) {
+                System.out.println(report);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
